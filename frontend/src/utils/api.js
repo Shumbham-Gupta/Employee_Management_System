@@ -4,7 +4,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://employee-management-system-backend-part.onrender.com/api",
+  baseURL: "https://employee-management-system-backend-part.onrender.com/api/auth",
 });
 
 // ✅ Attach Token Automatically
