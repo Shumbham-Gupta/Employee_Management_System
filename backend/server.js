@@ -10,7 +10,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+const frontendUrl="https://employee-management-system-frontend-5opl.onrender.com";
+app.use(cors({
+  origin: frontendUrl,
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
