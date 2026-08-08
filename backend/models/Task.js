@@ -36,13 +36,49 @@ const taskSchema = new mongoose.Schema(
       index: true,
     },
 
-    // ✅ Deadline date
+    // ✅ Priority Level
+    priority: {
+      type: String,
+      enum: ["Low", "Medium", "High", "Urgent"],
+      default: "Medium",
+    },
+
+    // ✅ Attachment URL (Figma, GitHub PR, Docs, etc.)
+    attachmentUrl: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    // ✅ Task Deadline
     deadline: {
       type: Date,
       required: true,
       index: true,
     },
+
+    // ✅ Task Comments & Activity Stream
+    comments: [
+      {
+        sender: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Employee",
+          required: true,
+        },
+        text: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
+
+
   { timestamps: true }
 );
 

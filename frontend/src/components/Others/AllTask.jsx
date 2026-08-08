@@ -5,8 +5,10 @@ import { AuthContext } from "../../context/AuthContext";
 import React from "react";
 
 const AllTask = () => {
-  const [userData] = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+  const userData = authContext?.user ? [authContext.user] : [];
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+
 
   const closePopup = () => setSelectedEmployee(null);
 

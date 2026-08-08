@@ -1,2 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+html.dark {
+  color-scheme: dark;
+  background-color: #0f172a;
+  color: #f8fafc;
+}

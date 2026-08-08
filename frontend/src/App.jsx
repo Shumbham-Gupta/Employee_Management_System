@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import Login from "./pages/Login";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -27,55 +28,58 @@ const HomeRedirect = () => {
 // Main App
 export default function App() {
   return (
-    <AuthProvider>
-      <div className="min-h-screen">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/admin/*"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/employee/*"
-            element={
-              <ProtectedRoute role="employee">
-                <EmployeeDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<HomeRedirect />} />
-        </Routes>
+    <ThemeProvider>
+      <AuthProvider>
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute role="admin">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employee/*"
+              element={
+                <ProtectedRoute role="employee">
+                  <EmployeeDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/" element={<HomeRedirect />} />
+          </Routes>
 
-        {/* Toast notifications */}
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          toastStyle={{
-            backgroundColor: "#ffffff",
-            color: "#1e1e2f",
-            border: "1px solid #e0e0e0",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
-            fontSize: "0.9rem",
-            fontWeight: 500,
-          }}
-          progressStyle={{
-            backgroundColor: "#6366f1",
-          }}
-        />
-      </div>
-    </AuthProvider>
+          {/* Toast notifications */}
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            toastStyle={{
+              backgroundColor: "#ffffff",
+              color: "#1e1e2f",
+              border: "1px solid #e0e0e0",
+              borderRadius: "10px",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
+              fontSize: "0.9rem",
+              fontWeight: 500,
+            }}
+            progressStyle={{
+              backgroundColor: "#6366f1",
+            }}
+          />
+        </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
+

@@ -1,25 +1,20 @@
-// import express from "express";
-// import { getEmployees, createEmployee } from "../controllers/employee.controller.js";
-
-// const router = express.Router();
-
-// router.get("/", getEmployees);
-// router.post("/", createEmployee);
-
-// export default router;
 import express from "express";
 import {
   getEmployees,
   createEmployee,
+  updateEmployee,
   deleteEmployee
 } from "../controllers/employee.controller.js";
+import { verifyToken, verifyAdmin } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/", getEmployees);
-router.post("/", createEmployee);
-
-// ✅ New Route: Delete employee by ID
-router.delete("/:id", deleteEmployee);
+// ✅ All employee routes require authentication and admin privileges
+router.get("/", verifyToken, verifyAdmin, getEmployees);
+router.post("/", verifyToken, verifyAdmin, createEmployee);
+router.put("/:id", verifyToken, verifyAdmin, updateEmployee);
+router.delete("/:id", verifyToken, verifyAdmin, deleteEmployee);
 
 export default router;
+
+

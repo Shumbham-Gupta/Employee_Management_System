@@ -18,15 +18,28 @@ export const registerAdmin = async (req, res) => {
 // 👷 Employee registration (NEW)
 export const registerEmployee = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, department, designation, phone } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-    const employee = new Employee({ name, email, password: hashed, role: "employee" });
+    const employee = new Employee({
+      name,
+      email,
+      password: hashed,
+      role: "employee",
+      department: department || "Engineering",
+      designation: designation || "Team Member",
+      phone: phone || "",
+    });
     await employee.save();
-    res.json({ message: "Employee registered successfully" });
+
+    const sanitizedEmployee = employee.toObject();
+    delete sanitizedEmployee.password;
+
+    res.json({ message: "Employee registered successfully", employee: sanitizedEmployee });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 // 🔐 Login (already exists)
 export const login = async (req, res) => {
@@ -41,12 +54,28 @@ export const login = async (req, res) => {
   res.json({ token, user });
 };
 
-// 👥 Get all employees (NEW)
-export const getEmployees = async (req, res) => {
+// 🔐 Change Password
+export const changePassword = async (req, res) => {
   try {
-    const employees = await Employee.find({ role: "employee" }).select("-password");
-    res.json(employees);
+    const userId = req.user.id;
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ error: "Current password and new password are required" });
+    }
+
+    const user = await Employee.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) return res.status(401).json({ error: "Current password is incorrect" });
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
+

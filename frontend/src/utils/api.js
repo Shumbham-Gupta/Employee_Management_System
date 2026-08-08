@@ -3,9 +3,22 @@
 
 import axios from "axios";
 
+// ✅ Dynamic API Base URL for local dev and live production deployment
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  // Local development vs Live Render deployment
+  return import.meta.env.DEV
+    ? "http://localhost:5000/api"
+    : "https://employee-management-system-backend-4e8s.onrender.com/api";
+};
+
 const API = axios.create({
-  baseURL: "https://employee-management-system-backend-part.onrender.com/api",
+  baseURL: getBaseURL(),
 });
+
+
 
 // ✅ Attach Token Automatically
 API.interceptors.request.use((config) => {
@@ -32,6 +45,11 @@ export const deleteEmployee = async (id) => {
   return res.data;
 };
 
+export const updateEmployeeDetails = async (id, data) => {
+  const res = await API.put(`/employees/${id}`, data);
+  return res.data;
+};
+
 // Tasks
 export const fetchTasks = async () => {
   const res = await API.get("/tasks");
@@ -43,7 +61,19 @@ export const createTask = async (task) => {
   return res.data;
 };
 
+export const updateTaskDetails = async (id, data) => {
+  const res = await API.put(`/tasks/${id}`, data);
+  return res.data;
+};
+
+export const addTaskComment = async (id, text) => {
+  const res = await API.post(`/tasks/${id}/comments`, { text });
+  return res.data;
+};
+
 // ✅ Admin updates ONLY adminStatus
+
+
 export const updateAdminStatus = async (id, adminStatus) => {
   const res = await API.put(`/tasks/admin/${id}`, { adminStatus });
   return res.data;
@@ -60,4 +90,47 @@ export const deleteTask = async (id) => {
   return res.data;
 };
 
+// Attendance
+export const clockIn = async () => {
+  const res = await API.post("/attendance/clock-in");
+  return res.data;
+};
+
+export const clockOut = async () => {
+  const res = await API.post("/attendance/clock-out");
+  return res.data;
+};
+
+export const fetchMyAttendance = async () => {
+  const res = await API.get("/attendance/my-attendance");
+  return res.data;
+};
+
+export const fetchAllAttendance = async (date) => {
+  const res = await API.get(`/attendance/all${date ? `?date=${date}` : ""}`);
+  return res.data;
+};
+
+// Leaves
+export const applyLeave = async (leaveData) => {
+  const res = await API.post("/leaves/apply", leaveData);
+  return res.data;
+};
+
+export const fetchMyLeaves = async () => {
+  const res = await API.get("/leaves/my-leaves");
+  return res.data;
+};
+
+export const fetchAllLeaves = async () => {
+  const res = await API.get("/leaves/all");
+  return res.data;
+};
+
+export const updateLeaveStatus = async (id, statusData) => {
+  const res = await API.put(`/leaves/${id}/status`, statusData);
+  return res.data;
+};
+
 export default API;
+
