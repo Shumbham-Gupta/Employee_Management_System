@@ -3,15 +3,12 @@
 
 import axios from "axios";
 
-// ✅ Dynamic API Base URL for local dev and live production deployment
+// ✅ Dynamic API Base URL using environment variable or hosted production backend fallback
 const getBaseURL = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  // Local development vs Live Render deployment
-  return import.meta.env.DEV
-    ? "http://localhost:5000/api"
-    : "https://employee-management-system-backend-4e8s.onrender.com/api";
+  return (
+    import.meta.env.VITE_API_URL ||
+    "https://employee-management-system-backend-4e8s.onrender.com/api"
+  );
 };
 
 const API = axios.create({
