@@ -192,39 +192,39 @@ const EmployeeList = ({ tasks = [] }) => {
 
       {/* EDIT MODAL */}
       {editingEmp && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Edit Employee</h3>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 dark:border-slate-800 transition-colors duration-200">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Edit Employee</h3>
             <form onSubmit={handleUpdate} className="space-y-3">
               <div>
-                <label className="text-xs font-semibold text-gray-600 uppercase">Name</label>
+                <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Name</label>
                 <input
                   type="text"
                   value={editingEmp.name || ""}
                   onChange={(e) => setEditingEmp({ ...editingEmp, name: e.target.value })}
-                  className="w-full border rounded-lg p-2.5 mt-1"
+                  className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-lg p-2.5 mt-1 outline-none focus:ring-2 focus:ring-indigo-500"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-600 uppercase">Email</label>
+                <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Email</label>
                 <input
                   type="email"
                   value={editingEmp.email || ""}
                   onChange={(e) => setEditingEmp({ ...editingEmp, email: e.target.value })}
-                  className="w-full border rounded-lg p-2.5 mt-1"
+                  className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-lg p-2.5 mt-1 outline-none focus:ring-2 focus:ring-indigo-500"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-gray-600 uppercase">Department</label>
+                  <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Department</label>
                   <select
                     value={editingEmp.department || "Engineering"}
                     onChange={(e) => setEditingEmp({ ...editingEmp, department: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 mt-1 bg-white"
+                    className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-lg p-2.5 mt-1 outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                   >
                     <option value="Engineering">Engineering</option>
                     <option value="HR">Human Resources</option>
@@ -237,23 +237,23 @@ const EmployeeList = ({ tasks = [] }) => {
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-gray-600 uppercase">Designation</label>
+                  <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Designation</label>
                   <input
                     type="text"
                     value={editingEmp.designation || ""}
                     onChange={(e) => setEditingEmp({ ...editingEmp, designation: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 mt-1"
+                    className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-lg p-2.5 mt-1 outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-600 uppercase">Phone</label>
+                <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Phone</label>
                 <input
                   type="tel"
                   value={editingEmp.phone || ""}
                   onChange={(e) => setEditingEmp({ ...editingEmp, phone: e.target.value })}
-                  className="w-full border rounded-lg p-2.5 mt-1"
+                  className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-lg p-2.5 mt-1 outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -261,13 +261,13 @@ const EmployeeList = ({ tasks = [] }) => {
                 <button
                   type="button"
                   onClick={() => setEditingEmp(null)}
-                  className="px-4 py-2 text-gray-600 border rounded-lg hover:bg-gray-100"
+                  className="px-4 py-2 text-gray-600 dark:text-slate-300 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 text-sm transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-sm transition"
                 >
                   Save Changes
                 </button>
@@ -276,6 +276,7 @@ const EmployeeList = ({ tasks = [] }) => {
           </div>
         </div>
       )}
+
     </div>
   );
 };

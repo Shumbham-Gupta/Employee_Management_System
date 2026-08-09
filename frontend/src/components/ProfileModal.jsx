@@ -43,47 +43,47 @@ export default function ProfileModal({ isOpen, onClose, user }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 relative">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 dark:border-slate-800 relative transition-colors duration-200">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-1"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-slate-200 p-1 transition"
         >
           <X size={20} />
         </button>
 
         {/* User Badge */}
-        <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-          <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-slate-800">
+          <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center font-bold text-lg">
             {user?.name?.[0] || "U"}
           </div>
           <div>
-            <h3 className="text-lg font-bold text-gray-800">{user?.name}</h3>
-            <p className="text-xs text-gray-500">{user?.email} • <span className="capitalize font-semibold text-indigo-600">{user?.role}</span></p>
+            <h3 className="text-lg font-bold text-gray-800 dark:text-white">{user?.name}</h3>
+            <p className="text-xs text-gray-500 dark:text-slate-400">{user?.email} • <span className="capitalize font-semibold text-indigo-600 dark:text-indigo-400">{user?.role}</span></p>
           </div>
         </div>
 
         {/* Change Password Form */}
-        <h4 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
-          <KeyRound size={18} className="text-indigo-600" /> Security & Password
+        <h4 className="text-sm font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+          <KeyRound size={18} className="text-indigo-600 dark:text-indigo-400" /> Security & Password
         </h4>
 
         <form onSubmit={handleChangePassword} className="space-y-3">
           <div>
-            <label className="text-xs font-semibold text-gray-600 uppercase">Current Password</label>
+            <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Current Password</label>
             <div className="relative mt-1">
               <input
                 type={showCurrentPassword ? "text" : "password"}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500 transition"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                className="absolute right-3 top-3 text-gray-400 dark:text-slate-400 hover:text-gray-600 dark:hover:text-slate-200 transition"
                 title={showCurrentPassword ? "Hide password" : "Show password"}
               >
                 {showCurrentPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -92,20 +92,20 @@ export default function ProfileModal({ isOpen, onClose, user }) {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-gray-600 uppercase">New Password</label>
+            <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">New Password</label>
             <div className="relative mt-1">
               <input
                 type={showNewPassword ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500 transition"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                className="absolute right-3 top-3 text-gray-400 dark:text-slate-400 hover:text-gray-600 dark:hover:text-slate-200 transition"
                 title={showNewPassword ? "Hide password" : "Show password"}
               >
                 {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -114,20 +114,20 @@ export default function ProfileModal({ isOpen, onClose, user }) {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-gray-600 uppercase">Confirm New Password</label>
+            <label className="text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase">Confirm New Password</label>
             <div className="relative mt-1">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500 transition"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                className="absolute right-3 top-3 text-gray-400 dark:text-slate-400 hover:text-gray-600 dark:hover:text-slate-200 transition"
                 title={showConfirmPassword ? "Hide password" : "Show password"}
               >
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -135,19 +135,18 @@ export default function ProfileModal({ isOpen, onClose, user }) {
             </div>
           </div>
 
-
           <div className="flex justify-end gap-2 pt-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-600 border rounded-xl hover:bg-gray-50 text-sm"
+              className="px-4 py-2 text-gray-600 dark:text-slate-300 border border-gray-200 dark:border-slate-700 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-800 text-sm transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-md text-sm"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-md text-sm transition"
             >
               {loading ? "Updating..." : "Update Password"}
             </button>
