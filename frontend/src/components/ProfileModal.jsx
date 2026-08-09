@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import API from "../utils/api.js";
 import { toast } from "react-toastify";
-import { User, Lock, X, KeyRound } from "lucide-react";
+import { User, Lock, X, KeyRound, Eye, EyeOff } from "lucide-react";
 
 export default function ProfileModal({ isOpen, onClose, user }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -68,39 +71,70 @@ export default function ProfileModal({ isOpen, onClose, user }) {
         <form onSubmit={handleChangePassword} className="space-y-3">
           <div>
             <label className="text-xs font-semibold text-gray-600 uppercase">Current Password</label>
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full border rounded-xl p-2.5 mt-1 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
+            <div className="relative mt-1">
+              <input
+                type={showCurrentPassword ? "text" : "password"}
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                title={showCurrentPassword ? "Hide password" : "Show password"}
+              >
+                {showCurrentPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <div>
             <label className="text-xs font-semibold text-gray-600 uppercase">New Password</label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full border rounded-xl p-2.5 mt-1 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
+            <div className="relative mt-1">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                title={showNewPassword ? "Hide password" : "Show password"}
+              >
+                {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <div>
             <label className="text-xs font-semibold text-gray-600 uppercase">Confirm New Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full border rounded-xl p-2.5 mt-1 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
+            <div className="relative mt-1">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full border rounded-xl p-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition"
+                title={showConfirmPassword ? "Hide password" : "Show password"}
+              >
+                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
+
 
           <div className="flex justify-end gap-2 pt-3">
             <button

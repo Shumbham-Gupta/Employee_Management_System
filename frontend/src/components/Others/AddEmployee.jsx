@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { createEmployee } from "../../utils/api.js";
-import { UserPlus } from "lucide-react";
+import { UserPlus, Eye, EyeOff } from "lucide-react";
 
 const AddEmployee = ({ onAddEmployee }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [department, setDepartment] = useState("Engineering");
   const [designation, setDesignation] = useState("Team Member");
   const [phone, setPhone] = useState("");
@@ -83,16 +84,27 @@ const AddEmployee = ({ onAddEmployee }) => {
         <label className="block text-xs font-semibold text-gray-600 dark:text-slate-300 uppercase mb-1">
           Initial Password *
         </label>
-        <input
-          type="password"
-          placeholder="••••••••"
-          className="w-full border border-gray-200 dark:border-slate-700 rounded-xl p-3 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500 transition"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={loading}
-          required
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="••••••••"
+            className="w-full border border-gray-200 dark:border-slate-700 rounded-xl p-3 pr-10 bg-gray-50 dark:bg-slate-950 text-gray-800 dark:text-slate-100 text-sm outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500 transition"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3.5 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-slate-200 transition"
+            title={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
       </div>
+
 
       {/* Department & Designation Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
